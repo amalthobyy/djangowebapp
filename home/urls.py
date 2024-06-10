@@ -16,4 +16,5 @@ urlpatterns = [
     path('admin_delete<str:pk>',views.admin_delete,name='admin_delete'),
     path('admin_edit<str:user_id>',views.admin_edit,name='admin_edit'),
     
+    
 ]

@@ -40,7 +40,7 @@ def logouthome(request):
 def signup(request):
     if request.method == 'POST':
         Username = request.POST['username'].strip()
-        Name = request.POST['Name']
+        Name = request.POST['Name'].strip()
         email = request.POST['email'].strip()
         password =request.POST['password'].strip()
         cpassword =request.POST['cpassword'].strip()
@@ -65,9 +65,6 @@ def signup(request):
         myUser.first_name = Name
         myUser.save()
         
-        user_obj = userinfo(username=Username,Name=Name,email=email)
-        user_obj.save()
-
         messages.success(request,'your account has created succesfully')
         
         return redirect('login')
@@ -141,8 +138,7 @@ def cuser(request):
         myUser.first_name = Name
         myUser.save()
         
-        user_obj = userinfo(username=Username,Name=Name,email=email)
-        user_obj.save()
+
 
         messages.success(request,'your account has created succesfully')
         
@@ -160,9 +156,9 @@ def alogout(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def admin_delete(request,pk):
-    user=userinfo.objects.get(id=pk)
+    user=User.objects.get(id=pk)
     user.delete()
-    user = userinfo.objects.all()
+    user = User.objects.all()
     return render(request, 'admin.html',{'users':user})
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
